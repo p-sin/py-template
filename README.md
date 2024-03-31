@@ -26,6 +26,7 @@ Python repository template
 
     - GitHub Pull Requests
     - GitLens - Git supercharged
+    - GitHub Actions
 
     - autoDocstring
     - Error Lens
