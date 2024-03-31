@@ -80,3 +80,4 @@ Python repository template
         - pytest (configured in pyproject.toml)
 
 8. GitHub workflows
+    - Configured in .github/workflows
