@@ -57,7 +57,7 @@ namespace_packages = false
 [tool.pytest.ini_options]
 pythonpath = ["py_template"]
 addopts = "--cov=py_template"
-testpaths = ["tests/"]
+testpaths = ["tests"]
 
 [tool.coverage.paths]
 source = ["py_template"]
@@ -82,8 +82,8 @@ exclude_also = [
     "@(abc\\.)?abstractmethod",
 ]
 
-[tool.ruff]
-lint.select = [
+[tool.ruff.lint]
+select = [
     "A",   # flake8-builtins (redefinition of bultins)
     "ANN", # flake8-annotations (type annotations are everywhere)
     "ARG", # flake8-unused-arguments (unused argument in function/method/class/lambda)
@@ -133,7 +133,7 @@ lint.select = [
     "YTT", # flake8-2020 (misuse of sys.version and sys.version_info)
     "W",   # pycodestyle (violation of PEP-8)
 ]
-lint.ignore = [
+ignore = [
     "ANN101",  # missing type annotation for self, but hinting self all the time is useless
     "ANN102",  # missing type annotation for cls but hinting cls all the time is useless
     "ANN401",  # disallows Any, but some elements should be Any when they are external
@@ -163,8 +163,6 @@ lint.ignore = [
     "UP035",   # allow use of typing.Callable
 ]
 exclude = ["gunicorn_conf.py", "tests/", "scripts/"]
-line-length = 88
-indent-width = 4
 
 # Allow fix for all enabled rules (when `--fix`) is provided.
 fixable = ["ALL"]
