@@ -71,7 +71,7 @@ Python repository template
 
         - Black (configured through ruff)
         - Ruff (configured in pyproject.toml)
-        - Mypy (configured in pyproject.toml)
+        - Mypy (configured in pyproject.toml and .github/linters/.mypy.ini)
         - isort
         - coverage (configured in .coveragerc)
         - pre-commit (configured in pre-commit-config.yaml then run ```pre-commit install```)
