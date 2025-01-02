@@ -24,6 +24,8 @@ Python repository template
     - markdownlint
     - Jupyter
     - rainbow csv
+    - parquet viewer
+    - SQLite viewer
 
     - GitHub Pull Requests
     - GitLens - Git supercharged
