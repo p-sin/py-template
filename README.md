@@ -23,6 +23,7 @@ Python repository template
     - Even Better TOML
     - markdownlint
     - Jupyter
+    - rainbow csv
 
     - GitHub Pull Requests
     - GitLens - Git supercharged
