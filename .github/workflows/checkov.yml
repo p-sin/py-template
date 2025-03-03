@@ -2,11 +2,7 @@ name: checkov
 
 permissions: read-all
 
-on:
-  push:
-    branches: ["main", "deploy/azure"]
-  pull_request:
-    branches: ["main", "deploy/azure"]
+on: [push, pull_request]
 
 jobs:
   scan:

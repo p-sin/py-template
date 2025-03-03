@@ -84,3 +84,27 @@ Python repository template
 
 8. GitHub workflows
     - Configured in .github/workflows
+
+Look at running deployment/infra workflows in separate repo
+Limit to running on certain file changes
+
+1. get secrets
+2. set up linters
+3. set up tests
+4. run linters and tests
+5. alerts
+
+Draft releases and deploy into test
+
+    Basic CI/CD: Set up a simple workflow to run Python tests
+
+    Data Pipeline Automation: Schedule data processing tasks
+
+    Environment Management: Handle secrets and credentials safely
+
+    Reusable Workflows: Create shared components (addresses the cost issue mentioned above)
+
+    Notifications & Monitoring: Set up Slack alerts for pipeline status
+
+9. Useful libraries
+    - Pydantic (model validation)
