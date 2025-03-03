@@ -2,7 +2,7 @@ name: nox
 
 permissions: read-all
 
-on: [push, workflow_dispatch, workflow_call]
+on: [pull_request, push, workflow_dispatch, workflow_call]
 
 jobs:
   tests:
