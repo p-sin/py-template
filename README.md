@@ -23,6 +23,9 @@ Python repository template
     - Even Better TOML
     - markdownlint
     - Jupyter
+    - rainbow csv
+    - parquet viewer
+    - SQLite viewer
 
     - GitHub Pull Requests
     - GitLens - Git supercharged
@@ -46,6 +49,13 @@ Python repository template
     - Remove dependencies: ```poetry remove```
     - Use ```poetry install``` to make/update virutal environment from poetry config
     - If does not create new virtual env, is because it is in one. Set to base python in select interpreter, then install again
+
+    - poetry.dependencies:
+        - python
+        - safety
+        - checkov
+        - mypy
+
     - dev-dependencies:
         - nox
         - pre-commit
@@ -54,8 +64,10 @@ Python repository template
         - ruff
         - mypy
         - typing-extensions
+        - pandas-stubs
         - pytest
         - pytest-cov
+        - pytest-mock
         - coverage
 
 6. Set up git repo
@@ -76,8 +88,41 @@ Python repository template
         - isort
         - coverage (configured in .coveragerc)
         - pre-commit (configured in pre-commit-config.yaml then run ```pre-commit install```)
-        - Nox (configured in noxfile.py)
+        - Nox (configured in noxfile.py), includes:
+            - ruff
+            - black
+            - isort
+            - pytest
+            - coverage
+            - mypy
+            - safety
+            - checkov
+            - trufflehog
         - pytest (configured in pyproject.toml)
 
 8. GitHub workflows
     - Configured in .github/workflows
+
+Look at running deployment/infra workflows in separate repo
+Limit to running on certain file changes
+
+1. get secrets
+2. set up linters
+3. set up tests
+4. run linters and tests
+5. alerts
+
+Draft releases and deploy into test
+
+    Basic CI/CD: Set up a simple workflow to run Python tests
+
+    Data Pipeline Automation: Schedule data processing tasks
+
+    Environment Management: Handle secrets and credentials safely
+
+    Reusable Workflows: Create shared components (addresses the cost issue mentioned above)
+
+    Notifications & Monitoring: Set up Slack alerts for pipeline status
+
+9. Useful libraries
+    - Pydantic (model validation)

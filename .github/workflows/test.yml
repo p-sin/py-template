@@ -19,7 +19,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5.1.0
         with:
-          python-version: "3.11"
+          python-version: "3.12"
 
       - name: Install Poetry
         run: curl -sSL https://install.python-poetry.org | python3 - --version 1.6.1
@@ -35,4 +35,4 @@ jobs:
             pip install -e .
 
       - name: Run Pytest
-        run: poetry run pytest --cov=atlas --cov-report=term-missing --cov-report=xml tests
+        run: poetry run pytest --cov=py_template --cov-report=term-missing --cov-report=xml tests
