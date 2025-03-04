@@ -21,6 +21,8 @@ exclude = [
 
 [tool.poetry.dependencies]
 python = "^3.12.2"
+safety = "^3.3.1" 
+checkov = "^3.2.379"
 
 
 [tool.poetry.dev-dependencies]
