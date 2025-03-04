@@ -29,7 +29,7 @@ jobs:
       - name: install dependencies
         run: |
           pip install --upgrade pip
-          pip install nox==2024.10.09 install poetry==1.6.1
+          pip install nox==2024.10.09 poetry==1.6.1
 
       - name: run nox
         run: nox --python ${{ matrix.python-version }}
