@@ -1,3 +1,4 @@
+---
 files: >
   (?x)^(
     py_template/ |
@@ -22,8 +23,6 @@ repos:
       - id: check-merge-conflict
       - id: pretty-format-json
         args: [--autofix]
-      
-
 
   - repo: https://github.com/psf/black
     rev: 24.10.0
@@ -66,9 +65,9 @@ repos:
             "dev",
           ]
 
-  -   repo: https://github.com/Yelp/detect-secrets
-      rev: v1.5.0
-      hooks:
-      -   id: detect-secrets
-          args: ['--baseline', '.secrets.baseline']
-          exclude: package.lock.json
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets
+        args: ['--baseline', '.secrets.baseline']
+        exclude: package.lock.json
