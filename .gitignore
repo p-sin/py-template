@@ -1,4 +1,6 @@
 ### Project
+.pdm-build
+.ruff_cache
 
 # Logs
 logs
