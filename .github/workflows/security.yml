@@ -43,7 +43,7 @@ jobs:
         run: pip install bandit
 
       - name: Run Bandit
-        run: bandit -r . -x tests/
+        run: bandit -r . -x */tests_*.py
 
   detect-secrets:
     runs-on: ubuntu-latest
@@ -64,4 +64,4 @@ jobs:
         run: detect-secrets scan --all-files > .secrets.baseline
 
       - name: Audit baseline
-        run: detect-secrets audit .secrets.baseline --exclude-files '\.git/.*'
+        run: detect-secrets audit .secrets.baseline
