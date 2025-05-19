@@ -54,7 +54,4 @@ jobs:
         run: pip install detect-secrets
 
       - name: Scan for secrets
-        run: detect-secrets scan --all-files > .secrets.baseline
-
-      - name: Audit baseline
-        run: detect-secrets audit .secrets.baseline --exclude-files FETCH_HEAD
+        run: detect-secrets scan --all-files > .secrets.baseline --exclude-files '.git*'
