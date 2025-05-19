@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Run Gitleaks
         uses: gitleaks/gitleaks-action@v2
@@ -55,4 +57,4 @@ jobs:
         run: detect-secrets scan --all-files > .secrets.baseline
 
       - name: Audit baseline
-        run: detect-secrets audit .secrets.baseline
+        run: detect-secrets audit .secrets.baseline --exclude-files FETCH_HEAD
