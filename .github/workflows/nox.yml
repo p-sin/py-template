@@ -1,35 +1,28 @@
+---
 name: nox
 
 permissions: read-all
 
-on: [pull_request, push, workflow_dispatch, workflow_call]
+on: [pull_request, push]
 
 jobs:
   tests:
-    runs-on: ${{ matrix.os }}
-    defaults:
-      run:
-        working-directory: .
+    runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        python-version: ["3.12"]
-        os: [ubuntu-latest]
-
-    name: Python ${{ matrix.python-version }} on ${{ matrix.os }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python
         uses: actions/setup-python@v5.1.0
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version-file: "pyproject.toml"
 
-      - name: install dependencies
-        run: |
-          pip install --upgrade pip
-          pip install nox==2024.10.09 poetry==1.6.1
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Install the project
+        run: uv sync --all-extras --dev
 
       - name: run nox
-        run: nox --python ${{ matrix.python-version }}
+        run: uv run nox

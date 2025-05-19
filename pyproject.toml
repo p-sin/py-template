@@ -1,86 +1,52 @@
-[tool.poetry]
-name = "py-template"
-version = "0.1.0"
-description = ""
-license = "MIT"
-authors = ["p-sin <p-sinfield@live.co.uk>"]
-readme = "README.md"
-repository = "https://github.com/p-sin/py-template"
-packages = [{ include = "py_template" }]
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
 
-exclude = [
-    ".github",
-    ".flake8",
-    ".pylintrc",
-    "mypy.ini",
-    ".coveragerc",
-    "Makefile",
-    "scripts",
-    "tests",
+[project]
+name = "py-template"
+version = "0.2.0"
+description = "A template repo for Python using uv providing config for workflows and pre-commit"
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "isort>=6.0.1",
+    "mypy>=1.15.0",
+    "nox>=2025.5.1",
+    "pytest>=8.3.5",
+    "pytest-cov>=6.1.1",
+    "ruff>=0.11.10",
 ]
 
-[tool.poetry.dependencies]
-python = "^3.12.2"
-safety = "^3.3.1" 
-checkov = "^3.2.379"
-mypy = "^1.15.0"
 
+[tool.uv]
+package = true
 
-[tool.poetry.dev-dependencies]
-# runner
-nox = "^2024.10.09"
-pre-commit = "^4.0.1"
-# format
-black = "^24.10.0"
-isort = "^5.13.2"
-# lint
-ruff = "^0.8.5"
-# typecheck
-typing-extensions = "^4.12.2"
-pandas-stubs = "^2.2.3.241126"
-# test
-pytest = "^8.3.4"
-pytest-cov = "^6.0.0"
-pytest-mock = "^3.14.0"
-coverage = "^7.6.10"
-
-# Scripts that can be called from CLI
-[tool.poetry.scripts]
-py-template = "py_template.a:a"
+[project.scripts]
+template = "py_template.main:main"
 
 [tool.mypy]
-mypy_path = ["py_template"]
+mypy_path = ["src"]
 strict = true
 namespace_packages = false
 
 
 [tool.pytest.ini_options]
-pythonpath = ["py_template"]
-addopts = "--cov=py_template"
-testpaths = ["tests"]
+addopts = "--cov=src"
 
 [tool.coverage.paths]
-source = ["py_template"]
+source = ["src"]
 
 [tool.coverage.run]
 branch = true
-source = ["py_tepmplate"]
+source = ["src"]
 
 [tool.coverage.report]
 show_missing = true
-# appl_under = 100
-exclude_also = [
-    "def __repr__",
-    "if self.debug:",
-    "if settings.DEBUG",
-    "raise AssertionError",
-    "raise NotImplementedError",
-    "if 0:",
-    "if __name__ == .__main__.:",
-    "if TYPE_CHECKING:",
-    "class .*\\bProtocol\\):",
-    "@(abc\\.)?abstractmethod",
-]
+
 
 [tool.ruff.lint]
 select = [
@@ -134,73 +100,50 @@ select = [
     "W",   # pycodestyle (violation of PEP-8)
 ]
 ignore = [
-    "ANN101",  # missing type annotation for self, but hinting self all the time is useless
-    "ANN102",  # missing type annotation for cls but hinting cls all the time is useless
-    "ANN401",  # disallows Any, but some elements should be Any when they are external
-    "B024",    # forces abstract classes to have at least one abstract method, but sometimes a class is virtually abstract
-    "D100",    # missing docstring in public module
-    "D101",    # missing docstring in public class
-    "D102",    # missing docstring in public method
-    "D103",    # missing docstring in public function
-    "D104",    # missing docstring in public package
-    "D105",    # docstrings on magic methods, useless docstrings are well known
-    "D107",    # missing docstring in __init__
-    "DTZ007",  # allow use of datetime.datetime without timezone
-    "DTZ011",  # naive datetime is used, but it's OK for the user to use it
-    "ERA001",  # commented-out code is OK in some cases
-    "E501",    # line size, but bug-bear already set it with a tolerance of 10% (B950)
-    "PD901",   # allow use of `df` for dataframes
-    "PD003",   # allow .isna() and .isnull() for dataframes
-    "PD004",   # allow .notna() and .notnull() for dataframes
-    "PD010",   # allow use of .pivot_table() for dataframes
-    "PD015",   # allow use of .merge() for dataframes
-    "PGH003",  # ignore use of specific rule codes when using noqa
-    "PLR2004", # allow use of some magic constants
-    "T201",    # allow print statements where necessary
-    "TCH001",  # ignore import only for type-checking in "if TYPE_CHECKING" blocks
-    "TCH002",  # ignore type-checking suggestions, trust the devs
-    "UP007",   # ignore or-wise typing for py3.9 support
-    "UP035",   # allow use of typing.Callable
+    "ANN401", # disallows Any, but some elements should be Any when they are external
+    "B024", # forces abstract classes to have at least one abstract method, but sometimes a class is virtually abstract
+    "D100", # Missing docstring in public module
+    "D105", # docstrings on magic methods, useless docstrings are well known
+    "D211", # incorrect blank line before class
+    "D401", # First line of docstring should be in imperative mood
+    "E501", # line size, but bug-bear already set it with a tolerance of 10% (B950)
+    "T201", # No print statements
+    "UP007" # ignore or-wise typing for py3.9 support
 ]
-exclude = ["gunicorn_conf.py", "tests/", "scripts/"]
+exclude = ["typings", "playground"]
 
-# Allow fix for all enabled rules (when `--fix`) is provided.
-fixable = ["ALL"]
-unfixable = []
-
-[tool.ruff.format]
-# Like Black, use double quotes for strings.
-quote-style = "double"
-
-# Like Black, indent with spaces, rather than tabs.
-indent-style = "space"
-
-# Like Black, respect magic trailing commas.
-skip-magic-trailing-comma = false
-
-# Like Black, automatically detect the appropriate line ending.
-line-ending = "auto"
-
-[tool.ruff.lint.per-file-ignores]
+[tool.ruff.per-file-ignores]
 "docs/conf.py" = [
     "A001", # redefine some builtins (like "copyright") is OK in docs
 ]
 "noxfile.py" = [
     "D402", # repeating the name of the function is OK for nox since it's to display it to the user
+    "D103" # Missing docstring in public function
 ]
 "tests/*" = [
-    "ARG",    # some arguments are unused in tests functions but useful (e.g. mocks)
-    "S101",   # asserts are OK for tests
-    "SLF001", # accessing private members is OK for tests
+    "ARG", # some arguments are unused in tests functions but useful (e.g. mocks)
+    "S101", # asserts are OK for tests
+    "SLF001" # accessing private members is OK for tests
 ]
 
-[tool.ruff.lint.pydocstyle]
+[tool.lint.ruff.pydocstyle]
 convention = "google"
 
-[tool.ruff.lint.isort]
-known-first-party = ["py_template"]
+[tool.lint.ruff.isort]
+known-first-party = ["src"]
 
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
 
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[tool.lint.isort]
+profile = "black"
+line_length = 88
+known_first_party = ["src"]
+
+[tool.lint.bandit]
+skips = [
+    "B101", # assert used
+]
