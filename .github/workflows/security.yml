@@ -21,13 +21,16 @@ jobs:
   trufflehog:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Run TruffleHog
-        run: |
-          docker run --rm -it -v $(pwd):/pwd -w /pwd ghcr.io/trufflesecurity/trufflehog:latest \
-            filesystem --path=. --fail
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Secret Scanning
+      uses: trufflesecurity/trufflehog@main
+      with:
+        base: ""
+        head: ${{ github.ref_name }}
+        extra_args: --results=verified,unknown
   
   bandit:
     runs-on: ubuntu-latest
