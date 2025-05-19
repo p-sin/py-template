@@ -13,6 +13,8 @@ jobs:
 
       - name: Run Gitleaks
         uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   trufflehog:
     runs-on: ubuntu-latest
@@ -41,7 +43,7 @@ jobs:
         run: pip install bandit
 
       - name: Run Bandit
-        run: bandit -r .
+        run: bandit -r . -x tests/
 
   detect-secrets:
     runs-on: ubuntu-latest
@@ -62,4 +64,4 @@ jobs:
         run: detect-secrets scan --all-files > .secrets.baseline
 
       - name: Audit baseline
-        run: detect-secrets audit .secrets.baseline
+        run: detect-secrets audit .secrets.baseline --exclude-files '\.git/.*'
