@@ -3,7 +3,7 @@ name: nox
 
 permissions: read-all
 
-on: [pull_request, push]
+on: [pull_request]
 
 jobs:
   tests:
