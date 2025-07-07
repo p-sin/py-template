@@ -6,7 +6,7 @@ permissions: read-all
 on: [pull_request]
 
 jobs:
-  tests:
+  nox:
     runs-on: ubuntu-latest
 
     strategy:
