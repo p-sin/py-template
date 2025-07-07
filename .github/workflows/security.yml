@@ -1,8 +1,11 @@
 name: Security checks
 
-permissions: read-all
-
 on: [push, pull_request]
+
+permissions:
+  security-events: write
+  contents: read
+  actions: read
 
 jobs:
   gitleaks:
@@ -34,8 +37,6 @@ jobs:
   
   bandit:
     runs-on: ubuntu-latest
-    permissions:
-      security-events: write
 
     steps:
       - name: Perform Bandit Analysis
