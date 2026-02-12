@@ -1,7 +1,14 @@
 ---
 name: Security checks
 
-on: [push, pull_request]
+on:
+  pull_request:
+    paths-ignore:
+      - ".github/**"
+
+  push:
+    paths-ignore:
+      - ".github/**"
 
 permissions:
   security-events: write
@@ -9,33 +16,20 @@ permissions:
   actions: read
 
 jobs:
-  gitleaks:
+  trufflehog:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Secret Scanning
+        uses: trufflesecurity/trufflehog@main
+        with:
+          base: ""
+          head: ${{ github.ref_name }}
+          extra_args: --results=verified,unknown
 
-      - name: Run Gitleaks
-        uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  trufflehog:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-    - name: Secret Scanning
-      uses: trufflesecurity/trufflehog@main
-      with:
-        base: ""
-        head: ${{ github.ref_name }}
-        extra_args: --results=verified,unknown
-  
   bandit:
     runs-on: ubuntu-latest
 

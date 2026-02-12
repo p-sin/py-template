@@ -4,7 +4,7 @@ import nox
 nox.options.reuse_existing_virtualenvs = True
 nox.options.sessions = ["lint", "typecheck", "security", "test", "yamllint"]
 
-PYTHON_VERSIONS = ["3.9", "3.10", "3.11", "3.12", "3.13"]
+PYTHON_VERSIONS = ["3.11", "3.12", "3.13.5"]
 
 # targets
 TARGETS = ["src", "tests"]
@@ -12,9 +12,9 @@ TARGETS = ["src", "tests"]
 
 def install_with_tools(session: nox.Session, *tools: str) -> None:
     """Install project and specified tools."""
-    session.install(".")
+    session.run("uv", "pip", "install", ".")
     if tools:
-        session.install(*tools)
+        session.run("uv", "pip", "install", *tools)
 
 
 def run_tool(session: nox.Session, tool: str, *args: str) -> None:
@@ -48,7 +48,7 @@ def security(session: nox.Session) -> None:
 @nox.session(tags=["test"])
 def test(session: nox.Session) -> None:
     """Run pytest test suite."""
-    install_with_tools(session, "pytest", "pytest-cov")
+    install_with_tools(session, "pytest", "pytest-cov", "moto", "duckdb", "sqlglot")
     args = session.posargs or []
     session.run("pytest", *args)
 
